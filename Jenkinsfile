@@ -4,11 +4,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Running build automation'
-                
-                sh './gradlew --version'
-                echo 'Running stacktrace'
-                sh './gradlew --stacktrace'
-              
                 sh './gradlew build --no-daemon'
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
@@ -18,7 +13,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                script{
+                script {
                     app = docker.build("bulibuli/train-schedule")
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
