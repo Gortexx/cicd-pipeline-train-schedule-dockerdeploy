@@ -14,6 +14,7 @@ pipeline {
             }
             steps {
                 script {
+                    docker ps -q
                     app = docker.build("bulibuli/train-schedule")
                     app.inside {
                         sh 'echo $(curl localhost:8080)'
@@ -27,6 +28,7 @@ pipeline {
             }
             steps{
                 script {
+
                     docker.withRegistry('https://registry.hub.docker.com', 'ca486cc1-5187-4885-a4ce-2b7f694751c6'){
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
