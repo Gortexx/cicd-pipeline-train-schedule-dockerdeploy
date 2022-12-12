@@ -15,6 +15,7 @@ pipeline {
             steps {
                 script {
                     echo 'msg'
+                    echo $USER
 
                     app = docker.build("bulibuli/train-schedule:latest")
                     app.inside {
